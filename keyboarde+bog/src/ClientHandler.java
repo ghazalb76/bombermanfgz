@@ -16,44 +16,26 @@ import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 
-public class ClientHandler implements Runnable {
-    int n;
-    java.lang.String key;
-    long[] score=null;
-    String[] scoreString=null;
-    long[][] posPresent= new long[2][9];
-    String[] presentType=new String[9];
-    String[] direction=null;
-    // int[] directionInt=null;
-    int[][] thebombInt_xy2=null;
-    int[][] thebombInt_xy1=null;
-    long[][] thebomb_xy1=null;
-    long[][] thebomb_xy2=null;
-    long[][] bomb_xy2=null;
-    int[][] posPlayerint=null;
-    long[][] posePlayer= null;
-    int[][] bombs=null;
-    String[][] squares=null;
+public class ClientHandler  {
+
+
+
     InputStream is;
     Thread t;
     Socket socket = null;
-    ParseClient parseClient=new ParseClient();
-    Graphic gui;
-    boolean flag=true;
-    String[] time=null;
-    int[][] posPlayer1ForBomb=new int[2][3];
-    int[][] posPlayer2ForBomb=new int[2][3];
+    ParseClient parseClient = new ParseClient();
 
-    public ClientHandler() throws IOException {
-        try {
-            socket=new Socket("localhost",8081);
-            is = socket.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        gui=new Graphic(/*squares,posPresent,n,parse.score,parse.presentType,parse.posePlayer,parse.bombs,parse.time*/);
 
-        t = new Thread(this);
+
+    public static void main(String[] args)throws IOException {
+
+
+        Graphic gui;
+        gui = new Graphic(/*squares,posPresent,n,parse.score,parse.presentType,parse.posePlayer,parse.bombs,parse.time*/);
+    Client client=new Client(gui);
+    }
+}
+     /*   t = new Thread(this);
         t.start();
 
         send();
@@ -303,5 +285,4 @@ public class ClientHandler implements Runnable {
     }
 
 
-}
-
+}*/

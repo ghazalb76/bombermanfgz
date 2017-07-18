@@ -4,12 +4,13 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 
-public class Graphic extends JPanel {
+public class Graphic extends JPanel implements ActionListener   {
     String[][] squares= null;
     long[][] presents=null;
     int number_of_players;
@@ -18,16 +19,13 @@ public class Graphic extends JPanel {
     int[][] bombs;
     String[] score=null;
     String[] timee=null;
-    String[] direction=null;
     JFrame frame = new JFrame("JFrame Color Example");
+
     int keyboard1=2;
     int keyboard2=4;
     int keyboard3=6;
     int keyboard4=8;
-    int[][] theBomb_xy1=null;
-    int[][] theBomb_xy2=null;
-
-
+    Keyboard  keyboard;
     Graphic(/*String[][] squares,long[][] presents,int n ,String[] score,String[] presentType,int[][] posePlayer,int[][] bombs,String [] timee*/){
        /* this.squares=squares;
         this.presents=presents;
@@ -37,9 +35,10 @@ public class Graphic extends JPanel {
         this.posePlayer=posePlayer;
         this.bombs=bombs;
         this.timee=timee;*/
+        this.keyboard=keyboard;
 
     }
-    void setChanges(String[][] squares,long[][] presents,int n,int[][] posePlayer,String[] score,String[] timee,String[] direction,int[][] theBomb_xy1,int [][]theBomb_xy2){
+    void setChanges(String[][] squares,long[][] presents,int n,int[][] posePlayer,String[] score,String[] timee){
         this.squares=squares;
         this.presents=presents;
         number_of_players=n;
@@ -48,17 +47,25 @@ public class Graphic extends JPanel {
         this.posePlayer=posePlayer;
         this.bombs=bombs;
         this.timee=timee;
-        this.direction=direction;
-        this.theBomb_xy1=theBomb_xy1;
-        this.theBomb_xy2=theBomb_xy2;
-        System.out.println(direction[0]+"\t"+direction[1]);
     }
 
     public void draaw(Graphic panel) {
+//        Keyboard keyboard=new Keyboard();
+     //   frame.add(keyboard);
         frame.setSize(918, 947 + 100);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+//        frame.add(keyboard);
+
+
         frame.add(panel);
         frame.setVisible(true);
+        for(int i=0;i<15;i++) {
+            for (int j = 0; j < 15; j++)
+                System.out.print(squares[i][j]);
+            System.out.println();
+        }
     }
 
     public void paint(Graphics g) {
@@ -135,6 +142,7 @@ public class Graphic extends JPanel {
             white_front=ImageIO.read(new File("C:\\Users\\asus\\Desktop\\whitefront.png"));
 
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -176,14 +184,6 @@ public class Graphic extends JPanel {
             y += 60;
             x = 0;
             }
-            for(int i=0;i<3;i++) {
-                if (theBomb_xy1[0][i]!=-1){
-                    g.drawImage(bomb,theBomb_xy1[1][i]*60,theBomb_xy1[0][i]*60+100,null);
-                }
-                if (theBomb_xy2[0][i]!=-1){
-                    g.drawImage(bomb,theBomb_xy2[1][i]*60,theBomb_xy2[0][i]*60+100,null);
-                }
-            }
         Font f = new Font("Comic Sans MS", Font.BOLD, 25);
         g.setFont(f);
         g.setColor(Color.white);
@@ -199,23 +199,23 @@ public class Graphic extends JPanel {
             g.drawImage(score_black, 750, 5, null);
             g.drawString(score[0],105,50);
             g.drawString(score[1],835,50);
-            switch (direction[0]){
-                case "2":g.drawImage(red_front, posePlayer[0][0], posePlayer[1][0], null);
+            switch (keyboard1){
+                case 2:g.drawImage(red_front, posePlayer[0][0], posePlayer[1][0], null);
                     break;
-                case "6":g.drawImage(red_right,posePlayer[0][0],posePlayer[1][0],null);
+                case 6:g.drawImage(red_right,posePlayer[0][0],posePlayer[1][0],null);
                     break;
-                case "4":g.drawImage(red_left,posePlayer[0][0],posePlayer[1][0],null);
+                case 4:g.drawImage(red_left,posePlayer[0][0],posePlayer[1][0],null);
                     break;
-                case "8":g.drawImage(red_back,posePlayer[0][0],posePlayer[1][0],null);
+                case 8:g.drawImage(red_back,posePlayer[0][0],posePlayer[1][0],null);
                     break;
-            }switch (direction[1]){
-                case "2":g.drawImage(blue_front,posePlayer[0][1],posePlayer[1][1],null);
+            }switch (keyboard2){
+                case 2:g.drawImage(blue_front,posePlayer[0][1],posePlayer[1][1],null);
                     break;
-                case "6":g.drawImage(blue_right,posePlayer[0][1],posePlayer[1][1],null);
+                case 6:g.drawImage(blue_right,posePlayer[0][1],posePlayer[1][1],null);
                     break;
-                case "4":g.drawImage(blue_left,posePlayer[0][1],posePlayer[1][1],null);
+                case 4:g.drawImage(blue_left,posePlayer[0][1],posePlayer[1][1],null);
                     break;
-                case "8":g.drawImage(blue_back,posePlayer[0][1],posePlayer[1][1],null);
+                case 8:g.drawImage(blue_back,posePlayer[0][0],posePlayer[1][1],null);
                     break;
             }
             /*for (int i = 0; i < 3; i++) {
@@ -326,5 +326,12 @@ public class Graphic extends JPanel {
             int yBomb=bombs[0][m]*60+100;
             g.drawImage(bomb,xBomb,yBomb,null);
         }*/
+    }
+
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
